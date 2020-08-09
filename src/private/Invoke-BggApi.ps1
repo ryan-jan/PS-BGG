@@ -7,7 +7,7 @@ function Invoke-BggApi {
 
         $Body,
 
-        [string] $ContentType = "application/xml"
+        [string] $ContentType = "text/xml"
     )
 
     $BaseUri = "https://boardgamegeek.com/"
@@ -18,9 +18,11 @@ function Invoke-BggApi {
         $Params = @{
             Uri = $BaseUri + $Uri
             Method = $Method
-            ContentType = $ContentType
+            ContentType = "$ContentType; charset=utf-8"
+            Headers = @{Accept = $ContentType}
             UseBasicParsing = $true
-        }        
+            OutFile = $Temp
+        }
 
         if ($Uri -eq "login/api/v1") {
             $Params.Body = $Body
@@ -33,25 +35,42 @@ function Invoke-BggApi {
             }
         } else {
             if ($Method -eq "POST") {
-                if ($null -ne $Global:PSBGG.Session) {
-                    $Params.WebSession = $Global:PSBGG.Session
-                } else {
-                    throw "You are not connected to BGG! Please connect using the Connect-BGG command."
-                }
+                $Params.WebSession = $Global:PSBG.Session
             }
             if ($Body) {
                 $Params.Body = $Body
             }
             $Res = Invoke-WebRequest @Params
-            if ($ContentType -eq "application/xml") {
+            if ($ContentType -eq "text/xml") {
                 if ($Res.StatusCode -eq 200) {
-                    [xml] $Res.Content
+                    [xml] (Invoke-Utf8Fix -String $Res.Content)
+                } elseif ($Res.StatusCode -eq 202) {
+                    Write-Host "The BoardGameGeek API has queued this request. Please wait." -NoNewline
+                    while ($Res.StatusCode -eq 202) {
+                        Start-Sleep -Seconds 5
+                        Write-Host "." -NoNewline
+                        try {
+                            $Res = Invoke-WebRequest @Params
+                        } catch {
+                            $Err = $_
+                            if ($Err.Exception.Message -like "*Rate limit exceeded.*") {
+                                Start-Sleep -Seconds 10
+                            } else {
+                                throw $Err
+                            }
+                        }
+                    }
+                    if ($Res.StatusCode -eq 200) {
+                        [xml] (Invoke-Utf8Fix -String $Res.Content)
+                    } else {
+                        throw $Res.StatusCode
+                    }
                 } else {
                     throw $Res.StatusCode
                 }
             } else {
                 if ($Res.StatusCode -eq 200) {
-                    $Res
+                    (Invoke-Utf8Fix -String $Res.Content) | ConvertFrom-Json
                 } else {
                     throw $Res.StatusCode
                 }

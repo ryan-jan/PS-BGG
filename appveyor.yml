@@ -3,8 +3,8 @@ image:
   - Ubuntu1804
 environment:
   PSGALLERY_KEY:
-    secure: <key>
-  CODECOV_TOKEN: <token>
+    secure: M9qJ6X5EN0yxPdCyw/xWPSj6e/mxte3/G6uq6O6Z189YFq8o/scQXjb+lsfJZi5W
+  # CODECOV_TOKEN: <token>
 build: off
 matrix:
   fast_finish: true
@@ -18,11 +18,11 @@ for:
       only:
         - image: Visual Studio 2019
     test_script:
-      - ps: .\Utils\Build.ps1 -Test
+      - ps: .\Utils\Build.ps1
   -
     matrix:
       only:
         - image: Ubuntu1804
     test_script:
-      - ps: .\Utils\Build.ps1 -Test -CodeCov -Deploy
+      - ps: .\Utils\Build.ps1 -Deploy
 

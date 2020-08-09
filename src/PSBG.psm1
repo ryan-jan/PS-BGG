@@ -12,3 +12,8 @@ foreach ($Module in ($Classes + $Public + $Private)) {
 }
 
 Export-ModuleMember -Function $Public.BaseName
+
+$PSBG = (Join-Path -Path $env:USERPROFILE -ChildPath ".psbg")
+if (-not (Test-Path -Path $PSBG)) {
+    New-Item -Path $PSBG -ItemType "Directory"
+}

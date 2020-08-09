@@ -15,7 +15,7 @@ if ($CodeCov) {
     Export-CodeCovIoJson -CodeCoverage $PesterResults.CodeCoverage -RepoRoot $PWD -Path "coverage.json"
     Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile "codecov.sh"
     bash codecov.sh -f coverage.json
-    $Coverage = (Get-Content .\coverage.json -Raw | ConvertFrom-Json).coverage
+    $Coverage = (Get-Content coverage.json -Raw | ConvertFrom-Json).coverage
     $Hit = @()
     $Missed = @()
     $Coverage.PSObject.Properties.Where({$_.MemberType -eq "NoteProperty"}).ForEach({

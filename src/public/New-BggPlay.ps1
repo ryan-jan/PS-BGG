@@ -30,35 +30,39 @@ function New-BggPlay {
     )
 
     try {
-        $Play = [BggPlay]::new()
-        $Play.Item = $Item
-        $Play.Quantity = $Quantity
-        if ($Location) {
-            $Play.Location = $Location
+        if (Test-BggLogin) {
+            $Play = [BggPlay]::new()
+            $Play.Item = $Item
+            $Play.Quantity = $Quantity
+            if ($Location) {
+                $Play.Location = $Location
+            }
+            $Play.Date = $Date
+            if ($Comment) {
+                $Play.Comment = $Comment
+            }
+            if ($Length) {
+                $Play.Length = $Length
+            }
+            $Play.Incomplete = $Incomplete
+            $Play.NoWinStats = $NoWinStats
+            if ($Players) {
+                $Play.Players = $Players.ForEach({
+                    [BggPlayer]::new($_)
+                })
+            }
+            
+            $ReqParams = @{
+                Uri = "geekplay.php"
+                ContentType = "application/json"
+                Method = "POST"
+                Body = $Play.NewPlayJson()
+            }
+            $NewPlay = Invoke-BggApi @ReqParams
+            (Get-BggPlay -Username $Global:PSBGG.Username -MinDate $Date -MaxDate $Date -All).Where({
+                $_.Id -eq $NewPlay.PlayId
+            })[0]
         }
-        $Play.Date = $Date
-        if ($Comment) {
-            $Play.Comment = $Comment
-        }
-        if ($Length) {
-            $Play.Length = $Length
-        }
-        $Play.Incomplete = $Incomplete
-        $Play.NoWinStats = $NoWinStats
-        if ($Players) {
-            $Play.Players = $Players.ForEach({
-                [BggPlayer]::new($_)
-            })
-        }
-        
-        $ReqParams = @{
-            Uri = "geekplay.php"
-            ContentType = "application/json"
-            Method = "POST"
-            Body = $Play.NewPlayJson()
-        }
-        Invoke-BggApi @ReqParams
-
     } catch {
         $Err = $_
         throw $Err

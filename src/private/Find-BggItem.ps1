@@ -22,11 +22,15 @@ function Find-BggItem {
         }
         $ReqParams = @{
             Uri = $Uri
-            ContentType = "application/xml"
         }
-        $Items = (Invoke-BggApi @ReqParams).Items.Item
-        foreach ($Item in $Items) {
-            [BggSearchItem]::new($Item)
+        $Items = (Invoke-BggApi @ReqParams).Items
+        if ($Items.Total -gt 0) {
+            foreach ($Item in $Items.Item) {
+                [BggSearchItem]::new($Item)
+            }
+        } else {
+            Write-Warning "0 Items returned."
+            $false
         }
     } catch {
         $Err = $_

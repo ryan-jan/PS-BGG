@@ -1,7 +1,8 @@
-function Connect-BGG {
+function Connect-Bgg {
     [CmdletBinding()]
     param (
-        [pscredential] $Credential
+        [Parameter(Mandatory = $false)]
+        [pscredential] $Credential = (Get-Credential)
     )
     
     $Body = @{
@@ -20,10 +21,12 @@ function Connect-BGG {
     if ($LoginRes.StatusCode -eq 202) {
         try {
             $Username = [regex]::Match($LoginRes.Headers."Set-Cookie", "(?=bggusername=)[^;]*")
-            $Global:PSBGG = @{
+            $Global:PSBG = @{
                 Username = $Username.ToString().Split("=")[1]
                 Session = $Session
             }
+            $PsJob = Start-BggColJob
+            $Global:PSBG.ColJobId = $PsJob.Id
             Write-Output "Connected to BGG successfully!"
         } catch {
             $Err = $_
