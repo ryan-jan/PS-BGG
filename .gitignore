@@ -1,0 +1,4 @@
+.vscode
+codecov.sh
+coverage.json
+test.xml
