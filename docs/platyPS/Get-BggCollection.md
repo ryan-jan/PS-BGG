@@ -22,7 +22,7 @@ Get-BggCollection [[-Username] <String>] [<CommonParameters>]
 This command returns collection information relating to a specific user. By default the username is the user
 specified when connecting to BoardGameGeek using the Connect-Bgg command.
 
-The BoardGameGeek XMLAPI2 has queue system when requesting collection information. Therefore,
+The BoardGameGeek XMLAPI2 has a queue system when requesting collection information. Therefore,
 the first time you run this command, or after you make a change to an item in your collection, you may see the
 message "The BoardGameGeek API has queued this request. Please wait." for a couple of seconds before the information
 is displayed. More info - https://boardgamegeek.com/thread/1188687/export-collections-has-been-updated-xmlapi-develop

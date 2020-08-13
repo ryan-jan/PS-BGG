@@ -30,7 +30,7 @@ CompanyName = 'Ryan Kowalewski'
 Copyright = '(c) 2020 Ryan Kowalewski. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'PowerShell module Board Game fans!'
+Description = 'PowerShell module for Board Game fans!'
 
 # Minimum version of the Windows PowerShell engine required by this module
 # PowerShellVersion = ''

@@ -59,9 +59,9 @@ function New-BggPlay {
                 Body = $Play.NewPlayJson()
             }
             $NewPlay = Invoke-BggApi @ReqParams
-            (Get-BggPlay -Username $Global:PSBGG.Username -MinDate $Date -MaxDate $Date -All).Where({
-                $_.Id -eq $NewPlay.PlayId
-            })[0]
+            if ($null -eq $NewPlay.PlayId) {
+                throw $NewPlay
+            }
         }
     } catch {
         $Err = $_

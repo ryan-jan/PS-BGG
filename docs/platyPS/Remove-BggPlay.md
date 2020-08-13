@@ -8,7 +8,8 @@ schema: 2.0.0
 # Remove-BggPlay
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Delete a BGG logged play.
 
 ## SYNTAX
 
@@ -17,21 +18,25 @@ Remove-BggPlay [-Play] <BggPlay> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+Delete a BGG logged play.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> $Plays = Get-BggPlay
+PS C:\> Remove-BggPlay -Play $Plays[0]
 ```
 
-{{ Add example description here }}
+Delete the first play in the $Plays array by its index.
 
 ## PARAMETERS
 
 ### -Play
-{{ Fill Play Description }}
+
+Specify a Play object to delete.
 
 ```yaml
 Type: BggPlay
@@ -50,11 +55,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
 
 ## RELATED LINKS

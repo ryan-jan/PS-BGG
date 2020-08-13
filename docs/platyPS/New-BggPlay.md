@@ -8,7 +8,8 @@ schema: 2.0.0
 # New-BggPlay
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Log a play against a BGG item.
 
 ## SYNTAX
 
@@ -19,21 +20,49 @@ New-BggPlay [-Item] <BggThingItem> [[-Quantity] <Int32>] [[-Location] <String>] 
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+This command lets you log a play against a BGG item.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Connect-Bgg
+PS C:\> Get-BggItem -Name "Targi" -ExactMatch | New-BggPlay
 ```
 
-{{ Add example description here }}
+Logs a very basic play with no additional information for the current date.
+
+### Example 2
+
+```powershell
+PS C:\> Connect-Bgg
+PS C:\> $Item = Get-BggItem -Name "Targi" -ExactMatch
+PS C:\> $Item | New-BggPlay -Quantity 2 -Location "Home" -Length 20 -Comment "I am a comment!"
+```
+
+Logs a play specifying some detailed information.
+
+### Example 3
+
+```powershell
+PS C:\> Connect-Bgg
+PS C:\> $Item = Get-BggItem -Name "Targi" -ExactMatch
+PS C:\>$Players = @(
+>> @{Username = "player1"; Name = "Player1"; StartPosition = 1; Color = "White"; Score = 123; New = $false; Rating = 5; Win = $true},
+>> @{Username = "player2"; Name = "Player2"; StartPosition = 2; Color = "Blue"; Score = 122; New = $true; Rating = 1; Win = $false}
+>> )
+PS C:\> $Item | New-BggPlay -Quantity 2 -Location "Home" -Length 20 -Players $Players
+```
+
+Logs a play specifying player information.
 
 ## PARAMETERS
 
 ### -Comment
-{{ Fill Comment Description }}
+
+Specify a comment.
 
 ```yaml
 Type: String
@@ -48,7 +77,8 @@ Accept wildcard characters: False
 ```
 
 ### -Date
-{{ Fill Date Description }}
+
+Specify a datetime object. Default is the current day.
 
 ```yaml
 Type: DateTime
@@ -57,13 +87,14 @@ Aliases:
 
 Required: False
 Position: 3
-Default value: None
+Default value: (Get-Date)
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Incomplete
-{{ Fill Incomplete Description }}
+
+Specify that the game was not completed.
 
 ```yaml
 Type: Boolean
@@ -78,7 +109,8 @@ Accept wildcard characters: False
 ```
 
 ### -Item
-{{ Fill Item Description }}
+
+Specify the Item to log the play against (see Get-BggItem).
 
 ```yaml
 Type: BggThingItem
@@ -93,7 +125,8 @@ Accept wildcard characters: False
 ```
 
 ### -Length
-{{ Fill Length Description }}
+
+Specify the duration of the game in minutes.
 
 ```yaml
 Type: Int32
@@ -108,7 +141,8 @@ Accept wildcard characters: False
 ```
 
 ### -Location
-{{ Fill Location Description }}
+
+Specify the location of the play.
 
 ```yaml
 Type: String
@@ -123,7 +157,8 @@ Accept wildcard characters: False
 ```
 
 ### -NoWinStats
-{{ Fill NoWinStats Description }}
+
+Specify that this play is not to count for your win stats overall.
 
 ```yaml
 Type: Boolean
@@ -138,7 +173,8 @@ Accept wildcard characters: False
 ```
 
 ### -Players
-{{ Fill Players Description }}
+
+Specify an array of hashtable objects, one for each player.
 
 ```yaml
 Type: Hashtable[]
@@ -153,7 +189,8 @@ Accept wildcard characters: False
 ```
 
 ### -Quantity
-{{ Fill Quantity Description }}
+
+Specify the number of plays.
 
 ```yaml
 Type: Int32
@@ -176,7 +213,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
 ## NOTES
 
 ## RELATED LINKS
