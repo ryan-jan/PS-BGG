@@ -1,7 +1,10 @@
 # Get public function definition files and dot source them
-$Classes = @(Get-ChildItem -Path $PSScriptRoot\classes\*.ps1)
-$Public = @(Get-ChildItem -Path $PSScriptRoot\public\*.ps1)
-$Private = @(Get-ChildItem -Path $PSScriptRoot\private\*.ps1)
+$ClassesPath = Join-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath "classes") -ChildPath "*.ps1"
+$PublicPath = Join-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath "public") -ChildPath "*.ps1"
+$PrivatePath = Join-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath "private") -ChildPath "*.ps1"
+$Classes = @(Get-ChildItem -Path $ClassesPath)
+$Public = @(Get-ChildItem -Path $PublicPath)
+$Private = @(Get-ChildItem -Path $PrivatePath)
 
 foreach ($Module in ($Classes + $Public + $Private)) {
     try {
@@ -13,7 +16,7 @@ foreach ($Module in ($Classes + $Public + $Private)) {
 
 Export-ModuleMember -Function $Public.BaseName
 
-$PSBG = (Join-Path -Path $env:USERPROFILE -ChildPath ".psbg")
+$PSBG = (Join-Path -Path $HOME -ChildPath ".psbg")
 if (-not (Test-Path -Path $PSBG)) {
     New-Item -Path $PSBG -ItemType "Directory"
 }

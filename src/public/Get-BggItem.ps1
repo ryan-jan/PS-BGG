@@ -21,7 +21,7 @@ function Get-BggItem {
 
     try {
         if (Test-BggLogin) {
-            $PsbgDir = Join-Path -Path $env:USERPROFILE -ChildPath ".psbg"
+            $PsbgDir = Join-Path -Path $HOME -ChildPath ".psbg"
             $CollPath = Join-Path -Path $PsbgDir -ChildPath "collection.xml"
             if (Test-Path -Path $CollPath) {
                 $Coll = Import-Clixml -Path $CollPath

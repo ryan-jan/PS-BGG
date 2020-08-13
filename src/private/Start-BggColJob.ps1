@@ -1,6 +1,6 @@
 function Start-BggColJob {
     if (Test-BggLogin) {
-        $PsbgDir = Join-Path -Path $env:USERPROFILE -ChildPath ".psbg"
+        $PsbgDir = Join-Path -Path $HOME -ChildPath ".psbg"
         $CollPath = Join-Path -Path $PsbgDir -ChildPath "collection.xml"
         $ScriptBlock = [scriptblock] {
             param ($PSBG, $Path)
