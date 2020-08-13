@@ -12,7 +12,7 @@
 RootModule = 'PSBG.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.2.0'
+ModuleVersion = '0.3.0'
 
 # Supported PSEditions
 CompatiblePSEditions = @("Desktop", "Core")
@@ -64,9 +64,9 @@ Description = 'PowerShell module Board Game fans!'
 
 # Format files (.ps1xml) to be loaded when importing this module
 FormatsToProcess = @(
-    (Join-Path -Path "format" -ChildPath "BggItem.Format.ps1xml"),
-    (Join-Path -Path "format" -ChildPath "BggCollection.Format.ps1xml"),
-    (Join-Path -Path "format" -ChildPath "BggPlay.Format.ps1xml")
+    "format/BggCollection.Format.ps1xml",
+    "format/BggItem.Format.ps1xml",
+    "format/BggPlay.Format.ps1xml"
 )
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
