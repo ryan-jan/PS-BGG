@@ -65,7 +65,8 @@ Description = 'PowerShell module to access Board Game Geek stats & data.'
 # Format files (.ps1xml) to be loaded when importing this module
 FormatsToProcess = @(
     (Join-Path -Path "format" -ChildPath "BggItem.Format.ps1xml"),
-    (Join-Path -Path "format" -ChildPath "BggCollection.Format.ps1xml")
+    (Join-Path -Path "format" -ChildPath "BggCollection.Format.ps1xml"),
+    (Join-Path -Path "format" -ChildPath "BggPlay.Format.ps1xml")
 )
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess

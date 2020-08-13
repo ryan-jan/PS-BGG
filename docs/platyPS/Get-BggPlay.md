@@ -8,7 +8,8 @@ schema: 2.0.0
 # Get-BggPlay
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Return logged play information for a specific user.
 
 ## SYNTAX
 
@@ -31,21 +32,66 @@ Get-BggPlay [-Username <String>] [-Id <Int32>] [-MinDate <DateTime>] [-MaxDate <
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+This command returns play information for a specific user. By default it will return plays for the currently
+connected BGG user (see Connect-Bgg).
+
+The BoardGameGeek API returns the most recent 100 plays by default. However, you can use the -All and -Page parameters
+to return more plays. Just be aware that every 100 plays is a separate request to the BGG API so it can take a while
+to process.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Connect-Bgg
+PS C:\> Get-BggPlay
 ```
 
-{{ Add example description here }}
+Return the most recent 100 logged plays for the default user.
+
+### Example 2
+
+```powershell
+PS C:\> Connect-Bgg
+PS C:\> Get-BggPlay -All
+```
+
+Return all logged plays for the default user.
+
+### Example 3
+
+```powershell
+PS C:\> Connect-Bgg
+PS C:\> Get-BggPlay -Username "joebloggs" -All
+```
+
+Return all logged plays for the user "joebloggs".
+
+### Example 4
+
+```powershell
+PS C:\> Connect-Bgg
+PS C:\> Get-BggPlay -Page 1,5,8
+```
+
+Return pages 1, 5 & 8 of plays for the default user.
+
+### Example 5
+
+```powershell
+PS C:\> Connect-Bgg
+PS C:\> Get-BggItem -Name "Targi" -ExactMatch | Get-BggPlay
+```
+
+Return the latest 100 plays of the Targi item for the default user.
 
 ## PARAMETERS
 
 ### -All
-{{ Fill All Description }}
+
+Continue querying the BGG API for all logged plays for the specified user.
 
 ```yaml
 Type: SwitchParameter
@@ -72,7 +118,8 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-{{ Fill Id Description }}
+
+Specify an Item Id to return only plays for this item.
 
 ```yaml
 Type: Int32
@@ -87,7 +134,8 @@ Accept wildcard characters: False
 ```
 
 ### -MaxDate
-{{ Fill MaxDate Description }}
+
+Specify the maximum date to limit the plays returned.
 
 ```yaml
 Type: DateTime
@@ -102,7 +150,8 @@ Accept wildcard characters: False
 ```
 
 ### -MinDate
-{{ Fill MinDate Description }}
+
+Specify the minimum date to limit the plays returned.
 
 ```yaml
 Type: DateTime
@@ -117,7 +166,8 @@ Accept wildcard characters: False
 ```
 
 ### -Page
-{{ Fill Page Description }}
+
+Specify one or more page Ids to limit the plays returned.
 
 ```yaml
 Type: Int32[]
@@ -144,7 +194,8 @@ Accept wildcard characters: False
 ```
 
 ### -SubType
-{{ Fill SubType Description }}
+
+Specify either the "boardgame" or "boardgameexpansion" type to limit the plays returned.
 
 ```yaml
 Type: String
@@ -154,13 +205,14 @@ Accepted values: boardgame, boardgameexpansion
 
 Required: False
 Position: Named
-Default value: None
+Default value: boardgame
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Username
-{{ Fill Username Description }}
+
+Specify a username to return plays for a user other than the default.
 
 ```yaml
 Type: String
@@ -179,11 +231,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
 
 ## RELATED LINKS

@@ -12,9 +12,11 @@ function Get-BggCollection {
             $ReqParams = @{
                 Uri = $Uri
             }
-            $Items = (Invoke-BggApi @ReqParams).Items.Item
-            foreach ($Item in $Items) {
-                [BggCollectionItem]::new($Item)
+            $Items = (Invoke-BggApi @ReqParams).Items
+            if ([int] $Items.TotalItems -gt 0) {
+                foreach ($Item in $Items.Item) {
+                    [BggCollectionItem]::new($Item)
+                }
             }
         }
     } catch {

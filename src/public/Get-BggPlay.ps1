@@ -28,7 +28,7 @@ function Get-BggPlay {
             "boardgame",
             "boardgameexpansion"
         )]
-        [string] $SubType,
+        [string] $SubType = "boardgame",
 
         [Parameter(ParameterSetName = "Page", Mandatory = $true)]
         [Parameter(Mandatory = $false)]
@@ -41,7 +41,7 @@ function Get-BggPlay {
 
     try {
         if (Test-BggLogin) {
-            $Uri = "xmlapi2/plays?username=$Username"
+            $Uri = "xmlapi2/plays?username=$Username&subtype=$SubType"
             if ($Id) {
                 $Uri += "&id=$Id"
             }
@@ -50,11 +50,6 @@ function Get-BggPlay {
             }
             if ($MaxDate) {
                 $Uri += "&maxdate=$($MaxDate.ToString("yyyy-MM-dd"))"
-            }
-            if ($SubType) {
-                $Uri += "&subtype=$SubType"
-            } else {
-                $Uri += "&subtype=boardgame"
             }
 
             if ($Page) {

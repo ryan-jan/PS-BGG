@@ -24,7 +24,7 @@ function Find-BggItem {
             Uri = $Uri
         }
         $Items = (Invoke-BggApi @ReqParams).Items
-        if ($Items.Total -gt 0) {
+        if ([int] $Items.Total -gt 0) {
             foreach ($Item in $Items.Item) {
                 [BggSearchItem]::new($Item)
             }
