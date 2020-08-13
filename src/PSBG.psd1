@@ -15,7 +15,7 @@ RootModule = 'PSBG.psm1'
 ModuleVersion = '0.3.0'
 
 # Supported PSEditions
-CompatiblePSEditions = @("Desktop", "Core")
+# CompatiblePSEditions = @("Desktop", "Core")
 
 # ID used to uniquely identify this module
 GUID = 'd5f03b27-2974-4266-86e2-03978f4e86e3'
