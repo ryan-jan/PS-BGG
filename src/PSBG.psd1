@@ -12,10 +12,10 @@
 RootModule = 'PSBG.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.1.0'
+ModuleVersion = '0.2.0'
 
 # Supported PSEditions
-# CompatiblePSEditions = @()
+CompatiblePSEditions = @("Desktop", "Core")
 
 # ID used to uniquely identify this module
 GUID = 'd5f03b27-2974-4266-86e2-03978f4e86e3'
@@ -24,13 +24,13 @@ GUID = 'd5f03b27-2974-4266-86e2-03978f4e86e3'
 Author = 'Ryan Kowalewski'
 
 # Company or vendor of this module
-CompanyName = 'Unknown'
+CompanyName = 'Ryan Kowalewski'
 
 # Copyright statement for this module
 Copyright = '(c) 2020 Ryan Kowalewski. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'PowerShell module to access Board Game Geek stats & data.'
+Description = 'PowerShell module Board Game fans!'
 
 # Minimum version of the Windows PowerShell engine required by this module
 # PowerShellVersion = ''
@@ -73,16 +73,23 @@ FormatsToProcess = @(
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = '*'
+FunctionsToExport = @(
+    "Connect-Bgg",
+    "Get-BggCollection",
+    "Get-BggItem",
+    "Get-BggPlay",
+    "New-BggPlay",
+    "Remove-BggPlay"
+)
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-CmdletsToExport = '*'
+# CmdletsToExport = '*'
 
 # Variables to export from this module
-VariablesToExport = '*'
+# VariablesToExport = '*'
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-AliasesToExport = '*'
+# AliasesToExport = '*'
 
 # DSC resources to export from this module
 # DscResourcesToExport = @()
